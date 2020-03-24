@@ -99,7 +99,7 @@ class ProgressiveManager extends Manager {
     this.title = 'Not a manager'
     this.bonus = 0
   }
-  titleUpdater(){
+  titleUpdater(title){
     if(this.reports.length <= 3 && this.reports.length > 0){
       this.title = 'Barely Manager'
     } else if(this.reports.length > 3 && this.reports.length <= 10){
@@ -108,9 +108,12 @@ class ProgressiveManager extends Manager {
       this.title = 'Manager'
     } else if(this.reports.length > 50 && this.reports.length <= 100){
       this.title = 'Manager Plus'
-    } else {
+    } else if(this.reports.length > 100) {
       this.title = 'Bestest Manager'
     }
+  }
+  bonusUpdater(bonus){
+    this.bonus += 100
   }
 }
 
@@ -141,25 +144,52 @@ class ProgressiveManager extends Manager {
 */
 
 class Machine {
-  widgets_made_count = 0
-  wear_and_tear_count = 0
-  needs_reboot = false
-  makeWidgets(number){
-    this.widgets_made_count += number
-    if(this.widgets_made_count === 50){
-      this.wear_and_tear_count += 1
-    }
+  constructor(){
+    this.widgets_made_count = 0
+    this.wear_and_tear_count = 0
+    this.needs_reboot = false
+  }
+  makeWidgets(num){
+    this.widgets_made_count += num
+    this.wear_and_tear_count = this.widgets_made_count / 50
   }
   fixMachine(){
     this.needs_reboot = true
   }
   reboot(){
-    if(this.needs_reboot = true){
-      return function anonymous(){
-        this.wear_and_tear_count -= 10
-        this.needs_reboot = false
-      }
+    return () => {
+      this.wear_and_tear_count -= 10
+      this.needs_reboot = false
     }
   }
 }
+
+
+
+
+
+
+
+// class Machine {
+//   widgets_made_count = 0
+//   wear_and_tear_count = 0
+//   needs_reboot = false
+//   makeWidgets(number){
+//     this.widgets_made_count += number
+//     if(this.widgets_made_count === 50){
+//       this.wear_and_tear_count += 1
+//     }
+//   }
+//   fixMachine(){
+//     this.needs_reboot = true
+//   }
+//   reboot(){
+//     if(this.needs_reboot = true){
+//       return function anonymous(){
+//         this.wear_and_tear_count -= 10
+//         this.needs_reboot = false
+//       }
+//     }
+//   }
+// }
 
