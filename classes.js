@@ -99,7 +99,15 @@ class ProgressiveManager extends Manager {
     this.title = 'Not a manager'
     this.bonus = 0
   }
-  titleUpdater(title){
+  hire(employee){
+    this.reports.push(employee)
+    this.titleUpdater()
+  }
+  fire(index){
+    this.reports.splice(index, 1)
+    this.bonusUpdater()
+  }
+  titleUpdater(){
     if(this.reports.length <= 3 && this.reports.length > 0){
       this.title = 'Barely Manager'
     } else if(this.reports.length > 3 && this.reports.length <= 10){
@@ -112,12 +120,10 @@ class ProgressiveManager extends Manager {
       this.title = 'Bestest Manager'
     }
   }
-  bonusUpdater(bonus){
+  bonusUpdater(){
     this.bonus += 100
   }
 }
-
-//still need to solve this problem
 
 
 ////////// PROBLEM 4 - Black Diamond //////////
